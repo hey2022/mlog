@@ -1,0 +1,8 @@
+start:
+    # Implicit conversion of null to 0
+    op add i i 1
+    op mod i i @links
+    getlink reactor i
+    sensor heat reactor @heat
+    op equal cool heat 0
+    control enabled reactor cool
