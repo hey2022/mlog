@@ -1,0 +1,56 @@
+start:
+    sensor switch switch1 @enabled
+    jump start strictEqual switch false
+
+    ubind @poly
+    set targetOre @scrap
+    set range 7
+
+    sensor heldItems @unit @totalItems
+    sensor unitCapacity @unit @itemCapacity
+    jump depositItems equal heldItems unitCapacity
+
+    sensor currentItem @unit @firstItem
+    op notEqual badItem currentItem targetOre
+    op land badItem badItem heldItems
+    jump depositItems equal badItem true
+
+    sensor mining @unit @mining
+    jump findOre equal mining false
+end
+
+findOre:
+    ulocate ore storage true targetOre oreX oreY foundOre
+    jump return equal foundOre false
+    ucontrol within oreX oreY range inRange
+    jump mineOre equal inRange true
+    ucontrol approach oreX oreY range
+mineOre:
+    ucontrol mine oreX oreY
+end
+
+depositItems:
+    set i 0
+loop:
+    getlink storage i
+    sensor storageCapacity storage @itemCapacity
+    jump moveToStorage greaterThan storageCapacity 0
+    op add i i 1
+    jump loop lessThan i @links
+    jump return always
+
+moveToStorage:
+    sensor storageX storage @x
+    sensor storageY storage @y
+    ucontrol within storageX storageY range inRange
+    jump dropItems equal inRange true
+    ucontrol approach storageX storageY range
+dropItems:
+    ucontrol itemDrop storage unitCapacity
+end
+
+return:
+    ucontrol within @thisx @thisy range inRange
+    jump start equal inRange true
+    ucontrol approach @thisx @thisy range
+end
