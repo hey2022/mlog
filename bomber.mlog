@@ -1,0 +1,69 @@
+start:
+    ubind @zenith
+    set bomb @blast-compound
+    sensor heldBombs @unit bomb
+    sensor unitCapacity @unit @itemCapacity
+    jump bombsLoaded equal heldBombs unitCapacity
+
+getStorage:
+    set i 0
+loop:
+    getlink storage i
+    sensor storageCapacity storage @itemCapacity
+    jump moveToStorage greaterThan storageCapacity 0
+    op add i i 1
+    jump loop lessThan i @links
+    jump return always
+
+moveToStorage:
+    set range 7
+
+    sensor storageX storage @x
+    sensor storageY storage @y
+    ucontrol within storageX storageY range inRange
+    jump dropItems equal inRange true
+    ucontrol approach storageX storageY range
+dropItems:
+    sensor currentItem @unit @firstItem
+    jump takeBombs equal currentItem bomb
+    ucontrol itemDrop storage unitCapacity
+takeBombs:
+    ucontrol itemTake storage bomb unitCapacity
+end
+
+bombsLoaded:
+    sensor switch switch1 @enabled
+    jump attack equal switch true
+
+# Avoid storage to prevent exploding it
+avoidStorage:
+    set avoidanceRadius 25
+
+    sensor x @unit @x
+    sensor y @unit @y
+
+    op sub dx x storageX
+    op sub dy y storageY
+    op len distance dx dy
+
+    op sub diff avoidanceRadius distance
+    jump unbind lessThan diff 5
+
+    ucontrol approach storageX storageY avoidanceRadius
+end
+
+return:
+    ucontrol within @thisx @thisy range inRange
+    jump start equal inRange true
+    ucontrol approach @thisx @thisy range
+end
+
+unbind:
+    ucontrol unbind
+end
+
+attack:
+    ulocate building core true @copper enemyCoreX enemyCoreY found enemyCore
+    jump start equal found false
+    ucontrol move enemyCoreX enemyCoreY
+    ucontrol target enemyCoreX enemyCoreY true
