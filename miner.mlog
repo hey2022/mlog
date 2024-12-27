@@ -30,10 +30,12 @@ end
 
 depositItems:
     set i 0
+    sensor currentItem @unit @firstItem
 loop:
     getlink storage i
+    sensor currentItemUsage storage currentItem
     sensor storageCapacity storage @itemCapacity
-    jump moveToStorage greaterThan storageCapacity 0
+    jump moveToStorage lessThan currentItemUsage storageCapacity
     op add i i 1
     jump loop lessThan i @links
     jump return always
