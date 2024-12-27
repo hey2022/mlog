@@ -1,9 +1,8 @@
 start:
-    sensor switch switch1 @enabled
-    jump start strictEqual switch false
+    sensor targetOre sorter1 @config
+    jump start strictEqual targetOre null
 
     ubind @poly
-    sensor targetOre sorter1 @config
     set range 7
 
     sensor heldItems @unit @totalItems
