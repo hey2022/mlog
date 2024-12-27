@@ -3,7 +3,7 @@ start:
     jump start strictEqual switch false
 
     ubind @poly
-    set targetOre @scrap
+    sensor targetOre sorter1 @config
     set range 7
 
     sensor heldItems @unit @totalItems
