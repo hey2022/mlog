@@ -1,3 +1,3 @@
 # Mindustry Logic (mlog)
 
-This repository contains all my mlog programs that I use in [Mindustry](https://mindustrygame.github.io).
+A collection of useful mlog programs for logic in [Mindustry](https://mindustrygame.github.io).
