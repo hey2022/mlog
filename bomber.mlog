@@ -9,8 +9,8 @@ getStorage:
     set i 0
 loop:
     getlink storage i
-    sensor storageCapacity storage @itemCapacity
-    jump moveToStorage greaterThan storageCapacity 0
+    sensor bombs storage bomb
+    jump moveToStorage greaterThan bombs 0
     op add i i 1
     jump loop lessThan i @links
     jump return always
