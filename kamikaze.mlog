@@ -32,8 +32,8 @@ takeBombs:
     end
 
 bombsLoaded:
-    sensor controlled duo1 @controlled
-    jump attack equal controlled @ctrlPlayer
+    sensor attacking wave1 @shooting
+    jump attack equal attacking true
 
     # Avoid storage to prevent exploding it
 avoidStorage:
@@ -57,7 +57,7 @@ unbind:
     end
 
 attack:
-    sensor targetX duo1 @shootX
-    sensor targetY duo1 @shootY
+    sensor targetX wave1 @shootX
+    sensor targetY wave1 @shootY
     ucontrol move targetX targetY
     ucontrol target targetX targetY true
