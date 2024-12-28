@@ -16,7 +16,7 @@ start:
 
     sensor mining @unit @mining
     jump findOre equal mining false
-end
+    end
 
 findOre:
     ulocate ore storage true targetOre oreX oreY foundOre
@@ -26,7 +26,7 @@ findOre:
     ucontrol approach oreX oreY range
 mineOre:
     ucontrol mine oreX oreY
-end
+    end
 
 depositItems:
     set i 0
@@ -48,10 +48,10 @@ moveToStorage:
     ucontrol approach storageX storageY range
 dropItems:
     ucontrol itemDrop storage unitCapacity
-end
+    end
 
 return:
     ucontrol within @thisx @thisy range inRange
     jump start equal inRange true
     ucontrol approach @thisx @thisy range
-end
+    end

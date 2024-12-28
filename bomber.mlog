@@ -13,7 +13,7 @@ loop:
     jump moveToStorage greaterThan bombs 0
     op add i i 1
     jump loop lessThan i @links
-end
+    end
 
 moveToStorage:
     set range 7
@@ -29,13 +29,13 @@ dropItems:
     ucontrol itemDrop storage unitCapacity
 takeBombs:
     ucontrol itemTake storage bomb unitCapacity
-end
+    end
 
 bombsLoaded:
     sensor controlled duo1 @controlled
     jump attack equal controlled @ctrlPlayer
 
-# Avoid storage to prevent exploding it
+    # Avoid storage to prevent exploding it
 avoidStorage:
     set avoidanceRadius 25
 
@@ -50,11 +50,11 @@ avoidStorage:
     jump unbind lessThan diff 5
 
     ucontrol approach storageX storageY avoidanceRadius
-end
+    end
 
 unbind:
     ucontrol unbind
-end
+    end
 
 attack:
     sensor targetX duo1 @shootX
