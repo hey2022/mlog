@@ -13,7 +13,7 @@ loop:
     jump moveToStorage greaterThan bombs 0
     op add i i 1
     jump loop lessThan i @links
-    jump return always
+end
 
 moveToStorage:
     set range 7
@@ -50,12 +50,6 @@ avoidStorage:
     jump unbind lessThan diff 5
 
     ucontrol approach storageX storageY avoidanceRadius
-end
-
-return:
-    ucontrol within @thisx @thisy range inRange
-    jump start equal inRange true
-    ucontrol approach @thisx @thisy range
 end
 
 unbind:
