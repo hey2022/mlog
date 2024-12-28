@@ -32,8 +32,8 @@ takeBombs:
 end
 
 bombsLoaded:
-    sensor switch switch1 @enabled
-    jump attack equal switch true
+    sensor controlled duo1 @controlled
+    jump attack equal controlled @ctrlPlayer
 
 # Avoid storage to prevent exploding it
 avoidStorage:
@@ -63,7 +63,7 @@ unbind:
 end
 
 attack:
-    ulocate building core true @copper enemyCoreX enemyCoreY found enemyCore
-    jump start equal found false
-    ucontrol move enemyCoreX enemyCoreY
-    ucontrol target enemyCoreX enemyCoreY true
+    sensor targetX duo1 @shootX
+    sensor targetY duo1 @shootY
+    ucontrol move targetX targetY
+    ucontrol target targetX targetY true
